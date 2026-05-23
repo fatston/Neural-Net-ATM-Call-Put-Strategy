@@ -1,7 +1,8 @@
-# Neural Net ATM Call/Put Strategy
+# Neural Net ATM Call/Put Experiments
 
-This is a small local Python experiment that trains a simple PyTorch neural
-network to predict whether SPY will close higher tomorrow than it closed today.
+These are small local Python experiments that train a simple PyTorch neural
+network to predict whether an ETF will close higher tomorrow than it closed
+today.
 
 It is intentionally simple and readable. It is an educational toy model, not
 financial advice, not a trading system, and not a recommendation to buy or sell
@@ -9,7 +10,9 @@ anything.
 
 ## What It Does
 
-- Downloads daily SPY data from Yahoo Finance with `yfinance`.
+- Includes a SPY experiment in `spy_experiment.py`.
+- Includes a KRE regional-bank ETF experiment in `kre_experiment.py`.
+- Downloads daily ETF data from Yahoo Finance with `yfinance`.
 - Builds historical-only features such as returns, volatility, moving-average
   distance, volume change, and RSI.
 - Creates a target where `1` means tomorrow's close is higher than today's close.
@@ -29,7 +32,7 @@ anything.
     predicts up.
   - Spend `1%` each day on a 1-day at-the-money put when the neural network
     predicts down.
-- Saves an equity curve plot comparing buy-and-hold SPY and the options toy
+- Saves an equity curve plot comparing buy-and-hold and the options toy
   strategies.
 - Prints a compact risk summary with final equity, CAGR, max drawdown,
   Sharpe-style ratio, and worst daily return.
@@ -45,7 +48,13 @@ pip install -r requirements.txt
 ## Run
 
 ```bash
-python spy_nn_experiment.py
+python spy_experiment.py
+```
+
+Run the KRE version:
+
+```bash
+python kre_experiment.py
 ```
 
 The script prints model metrics and saves:
@@ -57,19 +66,19 @@ equity_curve.png
 ## Optional Arguments
 
 ```bash
-python spy_nn_experiment.py --start 2010-01-01 --epochs 300
+python spy_experiment.py --start 2010-01-01 --epochs 300
 ```
 
 The option proxy is intentionally less generous than pure realized-vol pricing:
 
 ```bash
-python spy_nn_experiment.py --iv-multiplier 1.25 --option-cost-bps 10
+python kre_experiment.py --iv-multiplier 1.25 --option-cost-bps 10
 ```
 
 To train on data before a specific period and backtest only that period:
 
 ```bash
-python spy_nn_experiment.py --test-start 2020-02-19 --test-end 2020-03-23 --plot equity_curve_bear.png
+python kre_experiment.py --test-start 2020-02-19 --test-end 2020-03-23 --plot kre_equity_curve_bear.png
 ```
 
 Useful options:
