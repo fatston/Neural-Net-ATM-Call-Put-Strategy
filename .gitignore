@@ -2,4 +2,4 @@
 .matplotlib-cache/
 __pycache__/
 *.pyc
-equity_curve*.png
+*equity_curve*.png
